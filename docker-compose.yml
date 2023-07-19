@@ -1,0 +1,36 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: service-item
+    image: service-item
+    volumes:
+      - .:/app
+    ports:
+      - 8002:8000
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - serviceItemNetwork
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8002"
+
+  db:
+    image: postgres
+    container_name: service-item-database
+    environment:
+      - POSTGRES_USER=service-item-admin
+      - POSTGRES_PASSWORD=secret-service-item-admin
+      - POSTGRES_DB=service-item
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - serviceItemNetwork
+
+networks:
+  serviceItemNetwork:
+
+volumes:
+  postgres_data:
