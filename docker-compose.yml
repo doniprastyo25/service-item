@@ -21,9 +21,7 @@ services:
     image: postgres
     container_name: service-item-database
     environment:
-      - POSTGRES_USER=service-item-admin
-      - POSTGRES_PASSWORD=secret-service-item-admin
-      - POSTGRES_DB=service-item
+      - ./config_item/.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:

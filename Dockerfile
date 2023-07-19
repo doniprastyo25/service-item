@@ -13,8 +13,6 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-COPY ./runserver.sh .
-RUN chmod +x runserver.sh
 
 # Expose the port that Django runs on (default is 8000)
 EXPOSE 8000
